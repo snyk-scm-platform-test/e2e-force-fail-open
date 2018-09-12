@@ -1,8 +1,9 @@
-var mysql = require("mysql");
+const mysql = require("mysql");
 const fs = require("fs");
-const lodash = require("lodash");
+const uniqWith = require("lodash").uniqWith;
+const isEqual = require("lodash").isEqual;
 
-var pool = mysql.createPool({
+const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
@@ -11,9 +12,10 @@ var pool = mysql.createPool({
   supportBigNumbers: true
 });
 
-// To be optimized
+// The following three functions are extremely WET,
+// ugly, reptitive and whats not. These are scripts which I used
+// to get the data into the database. I did not optimize them
 exports.insertMunicipalities = function() {
-  const QUERY = "INSERT INTO municipality (number, name) VALUES ?";
   let fieldNames;
   let GDENR;
   let GDENAMK;
@@ -32,11 +34,10 @@ exports.insertMunicipalities = function() {
       return [line.split(",")[GDENR], line.split(",")[GDENAMK]];
     })
     .filter(line => line);
-
-  municipalities = lodash.uniqWith(municipalities, lodash.isEqual);
+  municipalities = uniqWith(municipalities, isEqual);
 
   pool.getConnection(function(err, connection) {
-    console.log("hey!!");
+    const QUERY = "INSERT INTO municipality (number, name) VALUES ?";
     if (err) {
       console.log(err);
       return;
@@ -48,12 +49,9 @@ exports.insertMunicipalities = function() {
         console.log(err);
         return;
       }
-      console.log("result is? ", results);
     });
-    console.log("qqq ", connection.sql);
   });
 };
-
 exports.insertPostcodes = function() {
   const QUERY = "INSERT INTO postcode (number, supplement, name) VALUES ?";
   let fieldNames;
@@ -77,12 +75,10 @@ exports.insertPostcodes = function() {
       return [line[PLZ4], line[PLZZ], line[PLZNAMK]];
     })
     .filter(line => line);
-  // console.log('aaaa ', postcodes);
 
   pool.getConnection(function(err, connection) {
-    console.log("hey!!");
     if (err) {
-      console.log("error!! ");
+      console.log("error!! ", error);
       return;
     }
     // make the query
@@ -92,15 +88,10 @@ exports.insertPostcodes = function() {
         console.log("error....", err);
         return;
       }
-      console.log("result is? ");
     });
-    // console.log('qqq ', connection.sql);
   });
 };
-
 exports.insertMunicipalitiesHasPostcode = function() {
-  const query =
-    "INSERT INTO `municipality_has_postcode` (`municipality_number`, `pct_in_municipality`, `postcode_id`) VALUES ?";
   let fieldNames;
   let PLZ4;
   let PLZZ;
@@ -126,10 +117,9 @@ exports.insertMunicipalitiesHasPostcode = function() {
     .filter(line => line);
 
   pool.getConnection(function(err, connection) {
-    $QUERY =
+    const QUERY =
       "INSERT INTO municipality_has_postcode(" +
       "municipality_number, postcode_supplement, postcode_number, pct_in_municipality) VALUES?";
-    console.log("hey!!");
     if (err) {
       console.log("error!! ");
       return;
@@ -143,22 +133,17 @@ exports.insertMunicipalitiesHasPostcode = function() {
       }
       console.log("result is? ");
     });
-    // console.log('qqq ', connection.sql);
   });
-  // console.log('ermm ', municipalities.splice(0, 10));
-  // VALUES ('4001', '55', '5538');
 };
+// End of ugly code :)
 
 exports.getAddressByPostcodeNumber = function(number) {
-  // Return new promise
   return new Promise(function(resolve, reject) {
-    var val;
-    // reject();
     pool.getConnection(function(err, connection) {
       $QUERY =
         "SELECT DISTINCT p.name as location, p.number as postcode, m.name as municipality_name, m.number as municipality_number FROM municipality_has_postcode mp INNER JOIN postcode p on p.number=mp.postcode_number INNER JOIN municipality m on m.number = mp.municipality_number WHERE mp.postcode_number = ?";
       if (err) {
-        console.log("error!! ");
+        reject(err);
         return;
       }
       connection.query($QUERY, [number], function(err, results) {
@@ -170,14 +155,13 @@ exports.getAddressByPostcodeNumber = function(number) {
           resolve(results);
         }
       });
-      // console.log('qqq ', results);
     });
   });
 };
 
+// not needed
 exports.getMunicipality = function() {
   return new Promise(function(resolve, reject) {
-    var val;
     // reject();
     pool.getConnection(function(err, connection) {
       $QUERY = "SELECT name FROM `municipality`";

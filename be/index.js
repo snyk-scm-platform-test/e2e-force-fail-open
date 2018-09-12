@@ -12,20 +12,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-db.getMunicipality().then(result => {
-  console.log("hey there!!! ", result);
-});
-
-app.use("/address/municipalities", function(req, res) {
-  res.setHeader("Content-Type", "application/json");
-  db.getMunicipality()
-    .then(result => res.end(JSON.stringify(result, null, 2)))
-    .catch(error => {
-      res.status(500);
-      res.end(JSON.stringify({ errorCode: 500, hasError: true }), null, 2);
-    });
-});
-
 app.use("/address/postcode-number/:number", function(req, res) {
   res.setHeader("Content-Type", "application/json");
   // console.log('test ', req.params.number)
@@ -42,8 +28,19 @@ app.use("/address/postcode-number/:number", function(req, res) {
     });
 });
 
+// Not needed
+app.use("/address/municipalities", function(req, res) {
+  res.setHeader("Content-Type", "application/json");
+  db.getMunicipality()
+    .then(result => res.end(JSON.stringify(result, null, 2)))
+    .catch(error => {
+      res.status(500);
+      res.end(JSON.stringify({ errorCode: 500, hasError: true }), null, 2);
+    });
+});
+
 app.listen(3000, () => {
-  console.log("Listening.........");
+  console.log("Listening......... on port 3000");
 });
 
 // db.insertMunicipalities();
