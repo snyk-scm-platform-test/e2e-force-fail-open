@@ -16,7 +16,9 @@ import {
   resetMunicipality,
   resetLocation,
   resetPostcode,
-  resetHistory
+  resetHistory,
+  updateLocation,
+  updateMunicipality
 } from "../../actions";
 import { POSTCODE_MAX_DIGITS } from "../../constants";
 import Postcode from "./Postcode";
@@ -24,24 +26,6 @@ import Location from "./Location";
 import Municipality from "./Municipality";
 
 class FormExample extends Component {
-  state = {
-    postCode: {
-      value: "",
-      status: null
-    },
-    location: {},
-    municipality: {}
-  };
-
-  componentDidUpdate(prev, next) {
-    if (prev.location !== this.props.location) {
-      this.setState({ location: this.props.location });
-    }
-    if (prev.municipality !== this.props.municipality) {
-      this.setState({ municipality: this.props.municipality });
-    }
-  }
-
   handlePostCodeChange = e => {
     const postcodeNumber = e.target.value;
     const {
@@ -64,24 +48,40 @@ class FormExample extends Component {
       resetLocation();
       resetMunicipality();
     }
-    this.setState({ postCode: { value: postcodeNumber, status } });
   };
 
-  handleLocationChange = e =>
-    this.setState({ location: { value: e.target.value } });
+  handleLocationChange = e => {
+    const { value } = e.target;
+    this.props.updateLocation(value);
+  };
+  handleLocationOnInputChange = valueList =>
+    this.props.updateLocation(valueList[0]);
+
+  handleMunicipalityOnInputChange = valueList =>
+    this.props.updateMunicipality(valueList[0]);
+
+  handleMunicipalityChange = e => {
+    console.log("munic changing!!!");
+    const { value } = e.target;
+    // this.setState({ municipality: { value } });
+    this.props.updateMunicipality(value);
+  };
 
   handleButtonClick = () => {
-    const { postCode, location, municipality } = this.state;
+    const { postCode, location, municipality } = this.props;
     // this.props.getLatAndLng(postCode)
   };
 
-  handleMunicipalityChange = e =>
-    this.setState({ municipality: { value: e.target.value } });
-
   render() {
-    const { postCode, location, municipality } = this.state;
-    console.log("xinu li status? ", this.state);
-    console.log("the props ", this.props);
+    const {
+      postCode,
+      location,
+      municipality,
+      hasAllFieldsBeenFilled
+    } = this.props;
+
+    // console.log("xinu li status? ", this.props);
+    // console.log("the props ", this.props);
     return (
       <Col md={4}>
         <form>
@@ -91,13 +91,20 @@ class FormExample extends Component {
           />
           <Location
             {...location}
-            handleLocationChange={this.handleLocationChange}
+            onInputChange={this.handleLocationOnInputChange}
+            onChange={this.handleLocationChange}
           />
           <Municipality
             {...municipality}
+            handleMonInputChange={this.handleMunicipalityOnInputChange}
             handleMunicipalityChange={this.handleMunicipalityChange}
           />
-          <Button className="btn btn-success" onClick={this.handleButtonClick}>
+          <Button
+            className={`btn btn-success ${
+              hasAllFieldsBeenFilled ? "" : "disabled"
+            }`}
+            onClick={this.handleButtonClick}
+          >
             Proceed
           </Button>
         </form>
@@ -111,13 +118,21 @@ const mapDisptchToProps = {
   getAddressByPostcodeNumber,
   resetLocation,
   resetMunicipality,
-  resetPostcode
+  resetPostcode,
+  updateMunicipality,
+  updateLocation
 };
 
 const mapStateToProps = state => {
+  const {
+    form: { location, municipality }
+  } = state;
+  console.log(".???.", location.value, municipality.value);
   return {
-    location: state.form.location,
-    municipality: state.form.municipality
+    location: location,
+    municipality: municipality,
+    hasAllFieldsBeenFilled:
+      Boolean(location.value.length) && Boolean(municipality.value.length)
   };
 };
 

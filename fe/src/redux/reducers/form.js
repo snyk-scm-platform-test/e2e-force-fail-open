@@ -4,7 +4,9 @@ import {
   FORM_POSTCODE,
   RESET_FORM_LOCATION,
   RESET_FORM_MUNICIPALITY,
-  RESET_FORM_POSTCODE
+  RESET_FORM_POSTCODE,
+  FORM_MUNICIPALITY_LOADING,
+  FORM_LOCATION_LOADING
 } from "../../constants";
 import commonDefaultState from "../commonDefaultState";
 
@@ -31,7 +33,6 @@ export default function(state = initialState, action) {
       };
       break;
     case FORM_LOCATION:
-      console.log("reaching here ", action.payload);
       return {
         ...state,
         location: action.payload

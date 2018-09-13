@@ -8,7 +8,8 @@ export default ({
   value,
   options,
   isLoading,
-  handleMunicipalityChange
+  handleMunicipalityChange,
+  handleMonInputChange
 }) => {
   return (
     <FormGroup controlId="municipality">
@@ -16,7 +17,11 @@ export default ({
         Municipality {isLoading && <DotLoader size={15} />}
       </ControlLabel>
       {hasOptions ? (
-        <Typeahead disabled={isLoading} options={options || []} />
+        <Typeahead
+          disabled={isLoading}
+          onChange={handleMonInputChange}
+          options={options || []}
+        />
       ) : (
         <FormControl
           disabled={isLoading}

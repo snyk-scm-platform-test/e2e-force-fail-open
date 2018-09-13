@@ -4,7 +4,9 @@ import {
   resetMunicipality,
   resetHistory,
   getAddressByPostcodeNumber,
-  resetPostcode
+  resetPostcode,
+  updateMunicipality,
+  updateLocation
 } from "./address";
 import getLatAndLng from "./getLatAndLng";
 
@@ -15,5 +17,7 @@ export {
   getAddressByPostcodeNumber,
   resetLocation,
   resetMunicipality,
-  resetPostcode
+  resetPostcode,
+  updateLocation,
+  updateMunicipality
 };

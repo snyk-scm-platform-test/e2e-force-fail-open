@@ -6,22 +6,27 @@ import {
   API_GET_ADDRESS_BY_POSTCODE,
   CHANGE_CURRENT,
   FORM_POSTCODE,
-  RESET_FORM_POSTCODE
+  RESET_FORM_POSTCODE,
+  FORM_LOCATION_LOADING,
+  FORM_MUNICIPALITY_LOADING
 } from "../constants";
 
 import axios from "axios";
 
 export const getAddressByPostcodeNumber = number => (dispatch, getState) => {
-  dispatch({ type: FORM_LOCATION, payload: { isLoading: true } });
+  dispatch({
+    type: FORM_LOCATION,
+    payload: { ...getState().form.location, isLoading: true }
+  });
   dispatch({
     type: FORM_MUNICIPALITY,
-    payload: { isLoading: true }
+    payload: { ...getState().form.municipality, isLoading: true }
   });
   axios
     .get(`${API_GET_ADDRESS_BY_POSTCODE}/${number}`)
     .then(res => {
-      updateLocation(res.data, dispatch);
-      updateMunicipality(res.data, dispatch);
+      processLocation(res.data, dispatch);
+      processMunicipality(res.data, dispatch);
       updatePostcode(number, dispatch);
     })
     .catch(err => console.log("somethign went wront ", err));
@@ -31,9 +36,23 @@ const updatePostcode = (number, dispatch) => {
   dispatch({ type: FORM_POSTCODE, payload: number });
 };
 
-// updateMunicipality & updateLocation could be refactored.
+export const updateLocation = name => (dispatch, getState) => {
+  dispatch({
+    type: FORM_LOCATION,
+    payload: { ...getState().form.location, value: name }
+  });
+};
+
+export const updateMunicipality = name => (dispatch, getState) => {
+  dispatch({
+    type: FORM_MUNICIPALITY,
+    payload: { ...getState().form.municipality, value: name }
+  });
+};
+
+// processMunicipality & processLocation could be refactored.
 // Both functions shares identical logic
-const updateMunicipality = (data, dispatch) => {
+const processMunicipality = (data, dispatch) => {
   const municipalityList = data.reduce(function(r, a) {
     r[a.municipality_name] = r[a.municipality_name] || [];
     r[a.municipality_name] = { ...a };
@@ -44,7 +63,8 @@ const updateMunicipality = (data, dispatch) => {
     const data = {
       hasOptions: true,
       options: municipalities,
-      isLoading: false
+      isLoading: false,
+      value: ""
     };
     dispatch({ type: FORM_MUNICIPALITY, payload: data });
   }
@@ -58,7 +78,7 @@ const updateMunicipality = (data, dispatch) => {
     dispatch({ type: FORM_MUNICIPALITY, payload: data });
   }
 };
-const updateLocation = (data, dispatch) => {
+const processLocation = (data, dispatch) => {
   // Gathers unique values in specific key (`location`) and creates
   // an array of them.
   const locationList = data.reduce(function(r, a) {
@@ -72,7 +92,8 @@ const updateLocation = (data, dispatch) => {
     const data = {
       hasOptions: true,
       options: locations,
-      isLoading: false
+      isLoading: false,
+      value: ""
     };
     dispatch({ type: FORM_LOCATION, payload: data });
   }

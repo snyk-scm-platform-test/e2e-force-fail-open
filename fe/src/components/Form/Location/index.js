@@ -8,7 +8,8 @@ export default ({
   value,
   options,
   isLoading,
-  handleLocationChange
+  onChange,
+  onInputChange
 }) => {
   return (
     <FormGroup controlId="location">
@@ -16,13 +17,17 @@ export default ({
         Location {isLoading && <DotLoader size={15} />}
       </ControlLabel>
       {hasOptions ? (
-        <Typeahead disabled={isLoading} options={options || []} />
+        <Typeahead
+          disabled={isLoading}
+          onChange={onInputChange}
+          options={options || []}
+        />
       ) : (
         <FormControl
           disabled={isLoading}
           type="text"
           value={value}
-          onChange={handleLocationChange}
+          onChange={onChange}
         />
       )}
       <FormControl.Feedback />
