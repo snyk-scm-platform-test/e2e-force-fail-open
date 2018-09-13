@@ -10,6 +10,6 @@ export const RESET_FORM_LOCATION = "RESET_FORM_LOCATION";
 export const RESET_FORM_MUNICIPALITY = "RESET_FORM_MUNICIPALITY";
 export const FORM_POSTCODE = "FORM_POSTCODE";
 export const RESET_FORM_POSTCODE = "RESET_FORM_POSTCODE";
-export const FORM_LOCATION_LOADING = "FORM_LOCATION_LOADING";
-export const FORM_MUNICIPALITY_LOADING = "FORM_MUNICIPALITY_LOADING";
 export const POSTCODE_MAX_DIGITS = 4;
+export const GOOGLE_MAP_URL =
+  "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places";

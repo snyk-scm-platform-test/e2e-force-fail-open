@@ -1,28 +1,20 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
-import diff from "lodash/difference";
 import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
   Marker
 } from "react-google-maps";
-import { DotLoader } from "react-spinners";
 import { connect } from "react-redux";
 import { getLatAndLng } from "../../actions";
 import { deepDiff } from "../../util";
+import { GOOGLE_MAP_URL } from "../../constants";
 
 const MyMapComponent = withScriptjs(
   withGoogleMap(props => (
-    <GoogleMap
-      defaultZoom={8}
-      defaultCenter={{ lat: props.cordinates.lat, lng: props.cordinates.lng }}
-    >
-      {props.isMarkerShown && (
-        <Marker
-          position={{ lat: props.cordinates.lat, lng: props.cordinates.lng }}
-        />
-      )}
+    <GoogleMap defaultZoom={8} defaultCenter={{ ...props.cordinates }}>
+      {props.isMarkerShown && <Marker position={{ ...props.cordinates }} />}
     </GoogleMap>
   ))
 );
@@ -39,7 +31,7 @@ class Map extends Component {
 
     if (!!Object.getOwnPropertyNames(prevPropsDiff).length) {
       const { currentAddress, getLatAndLng } = this.props;
-      const { postCode, location, municipality, lat, lng } = currentAddress;
+      const { postCode, location, municipality } = currentAddress;
       const address = `${postCode} ${location} ${municipality}`;
       getLatAndLng(address);
       this.setState({ isVisible: true });
@@ -48,7 +40,7 @@ class Map extends Component {
   render() {
     const { isVisible } = this.state;
     const {
-      currentAddress: { lat, lng, isLoading }
+      currentAddress: { lat, lng }
     } = this.props;
 
     if (!isVisible) return null;
@@ -57,7 +49,7 @@ class Map extends Component {
         <MyMapComponent
           cordinates={{ lat, lng }}
           isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL={GOOGLE_MAP_URL}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `400px` }} />}
           mapElement={<div style={{ height: `100%` }} />}

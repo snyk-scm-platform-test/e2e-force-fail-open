@@ -1,22 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Typeahead } from "react-bootstrap-typeahead";
-import {
-  Col,
-  FormGroup,
-  FormControl,
-  HelpBlock,
-  ControlLabel,
-  Button
-} from "react-bootstrap";
-import { DotLoader } from "react-spinners";
+import { Col, Button } from "react-bootstrap";
 import {
   changedCurrentAddress,
   getAddressByPostcodeNumber,
   resetMunicipality,
   resetLocation,
   resetPostcode,
-  resetHistory,
   updateLocation,
   updateMunicipality
 } from "../../actions";

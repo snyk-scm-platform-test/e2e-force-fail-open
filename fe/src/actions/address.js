@@ -7,9 +7,7 @@ import {
   API_GET_ADDRESS_BY_POSTCODE,
   CHANGE_CURRENT_ADDRESS,
   FORM_POSTCODE,
-  RESET_FORM_POSTCODE,
-  FORM_LOCATION_LOADING,
-  FORM_MUNICIPALITY_LOADING
+  RESET_FORM_POSTCODE
 } from "../constants";
 import commonDefaultState from "../redux/commonDefaultState";
 
