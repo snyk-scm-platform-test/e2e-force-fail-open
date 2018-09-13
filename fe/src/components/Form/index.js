@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { DotLoader } from "react-spinners";
 import {
-  changeCurrent,
+  changedCurrentAddress,
   getAddressByPostcodeNumber,
   resetMunicipality,
   resetLocation,
@@ -26,6 +26,9 @@ import Location from "./Location";
 import Municipality from "./Municipality";
 
 class FormExample extends Component {
+  state = {
+    postCodeStatus: null
+  };
   handlePostCodeChange = e => {
     const postcodeNumber = e.target.value;
     const {
@@ -34,14 +37,16 @@ class FormExample extends Component {
       resetMunicipality,
       resetPostcode
     } = this.props;
-    let status = null;
+    let postCodeStatus = null;
     if (postcodeNumber.length !== POSTCODE_MAX_DIGITS || isNaN(postcodeNumber))
-      status = "error";
+      postCodeStatus = "error";
+    this.setState({ postCodeStatus });
     if (
       postcodeNumber.length === POSTCODE_MAX_DIGITS &&
       !isNaN(postcodeNumber)
     ) {
-      status = "success";
+      postCodeStatus = "success";
+      this.setState({ postCodeStatus });
       getAddressByPostcodeNumber(postcodeNumber);
     } else {
       resetPostcode();
@@ -68,19 +73,20 @@ class FormExample extends Component {
   };
 
   handleButtonClick = () => {
-    const { changeCurrent, isFormValid } = this.props;
-    if (isFormValid) changeCurrent();
+    const { changedCurrentAddress, isFormValid } = this.props;
+    if (isFormValid) changedCurrentAddress();
   };
 
   render() {
     const { postCode, location, municipality, isFormValid } = this.props;
-
+    const { postCodeStatus } = this.state;
     // console.log("xinu li status? ", this.props);
     // console.log("the props ", this.props);
     return (
       <Col md={4}>
         <form>
           <Postcode
+            status={postCodeStatus}
             {...postCode}
             handlePostCodeChange={this.handlePostCodeChange}
           />
@@ -107,7 +113,7 @@ class FormExample extends Component {
 }
 
 const mapDisptchToProps = {
-  changeCurrent,
+  changedCurrentAddress,
   getAddressByPostcodeNumber,
   resetLocation,
   resetMunicipality,
@@ -118,14 +124,15 @@ const mapDisptchToProps = {
 
 const mapStateToProps = state => {
   const {
-    form: { location, municipality }
+    form: { location, municipality, postcode }
   } = state;
-  console.log(".???.", location.value, municipality.value);
   return {
     location: location,
     municipality: municipality,
     isFormValid:
-      Boolean(location.value.length) && Boolean(municipality.value.length)
+      Boolean(postcode) &&
+      Boolean(location.value.length) &&
+      Boolean(municipality.value.length)
   };
 };
 

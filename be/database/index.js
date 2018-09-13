@@ -14,7 +14,7 @@ const pool = mysql.createPool({
 
 // The following three functions are extremely WET,
 // ugly, repetitive and whats not. These are scripts which I used
-// to get the data into the database. I did not optimize them
+// to get the data into the database. I did not refactor them
 exports.insertMunicipalities = function() {
   let fieldNames;
   let GDENR;

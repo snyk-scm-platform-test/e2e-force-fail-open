@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   FORM_LOCATION,
   RESET_FORM_MUNICIPALITY,
@@ -10,8 +11,7 @@ import {
   FORM_LOCATION_LOADING,
   FORM_MUNICIPALITY_LOADING
 } from "../constants";
-
-import axios from "axios";
+import commonDefaultState from "../redux/commonDefaultState";
 
 export const getAddressByPostcodeNumber = number => (dispatch, getState) => {
   dispatch({
@@ -36,13 +36,6 @@ const updatePostcode = (number, dispatch) => {
   dispatch({ type: FORM_POSTCODE, payload: number });
 };
 
-// export const updatePostcode = name => (dispatch, getState) => {
-//   dispatch({
-//     type: FORM_POSTCODE,
-//     payload: { ...getState().form.location, value: name }
-//   });
-// };
-
 export const updateLocation = name => (dispatch, getState) => {
   dispatch({
     type: FORM_LOCATION,
@@ -60,6 +53,8 @@ export const updateMunicipality = name => (dispatch, getState) => {
 // processMunicipality & processLocation could be refactored.
 // Both functions shares identical logic
 const processMunicipality = (data, dispatch) => {
+  // Gathers unique values in specific key (`location`) and creates
+  // an array of them.
   const municipalityList = data.reduce(function(r, a) {
     r[a.municipality_name] = r[a.municipality_name] || [];
     r[a.municipality_name] = { ...a };
@@ -84,10 +79,11 @@ const processMunicipality = (data, dispatch) => {
     };
     dispatch({ type: FORM_MUNICIPALITY, payload: data });
   }
+  if (municipalities.length === 0) {
+    dispatch({ type: FORM_MUNICIPALITY, payload: commonDefaultState });
+  }
 };
 const processLocation = (data, dispatch) => {
-  // Gathers unique values in specific key (`location`) and creates
-  // an array of them.
   const locationList = data.reduce(function(r, a) {
     r[a.location] = r[a.location] || [];
     r[a.location] = { ...a };
@@ -112,19 +108,22 @@ const processLocation = (data, dispatch) => {
     };
     dispatch({ type: FORM_LOCATION, payload: data });
   }
+
+  if (locations.length === 0) {
+    dispatch({ type: FORM_LOCATION, payload: commonDefaultState });
+  }
 };
 
 export const resetLocation = () => (dispatch, getState) => {
   dispatch({ type: RESET_FORM_LOCATION });
 };
 
-export const changeCurrent = address => (dispatch, getState) => {
+export const changedCurrentAddress = address => (dispatch, getState) => {
   const currentAddress = {
     postCode: getState().form.postcode,
     location: getState().form.location.value,
     municipality: getState().form.municipality.value
   };
-  console.log(currentAddress, getState().form);
   dispatch({ type: CHANGE_CURRENT, payload: currentAddress });
 };
 

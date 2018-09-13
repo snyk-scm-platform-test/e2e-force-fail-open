@@ -4,9 +4,7 @@ import {
   FORM_POSTCODE,
   RESET_FORM_LOCATION,
   RESET_FORM_MUNICIPALITY,
-  RESET_FORM_POSTCODE,
-  FORM_MUNICIPALITY_LOADING,
-  FORM_LOCATION_LOADING
+  RESET_FORM_POSTCODE
 } from "../../constants";
 import commonDefaultState from "../commonDefaultState";
 

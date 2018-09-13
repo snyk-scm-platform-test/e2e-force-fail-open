@@ -1,5 +1,5 @@
 import {
-  changeCurrent,
+  changedCurrentAddress,
   resetLocation,
   resetMunicipality,
   resetHistory,
@@ -12,7 +12,7 @@ import getLatAndLng from "./getLatAndLng";
 
 export {
   getLatAndLng,
-  changeCurrent,
+  changedCurrentAddress,
   resetHistory,
   getAddressByPostcodeNumber,
   resetLocation,
