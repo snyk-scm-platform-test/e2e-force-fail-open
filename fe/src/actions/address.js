@@ -36,6 +36,13 @@ const updatePostcode = (number, dispatch) => {
   dispatch({ type: FORM_POSTCODE, payload: number });
 };
 
+// export const updatePostcode = name => (dispatch, getState) => {
+//   dispatch({
+//     type: FORM_POSTCODE,
+//     payload: { ...getState().form.location, value: name }
+//   });
+// };
+
 export const updateLocation = name => (dispatch, getState) => {
   dispatch({
     type: FORM_LOCATION,
@@ -112,7 +119,13 @@ export const resetLocation = () => (dispatch, getState) => {
 };
 
 export const changeCurrent = address => (dispatch, getState) => {
-  dispatch({ type: CHANGE_CURRENT, payload: address });
+  const currentAddress = {
+    postCode: getState().form.postcode,
+    location: getState().form.location.value,
+    municipality: getState().form.municipality.value
+  };
+  console.log(currentAddress, getState().form);
+  dispatch({ type: CHANGE_CURRENT, payload: currentAddress });
 };
 
 export const resetMunicipality = () => (dispatch, getState) =>

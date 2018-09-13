@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import address from "./address";
+import currentAddress from "./currentAddress";
 import form from "./form";
 
 export default combineReducers({
-  address,
+  currentAddress,
   form
 });

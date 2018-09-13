@@ -68,17 +68,12 @@ class FormExample extends Component {
   };
 
   handleButtonClick = () => {
-    const { postCode, location, municipality } = this.props;
-    // this.props.getLatAndLng(postCode)
+    const { changeCurrent, isFormValid } = this.props;
+    if (isFormValid) changeCurrent();
   };
 
   render() {
-    const {
-      postCode,
-      location,
-      municipality,
-      hasAllFieldsBeenFilled
-    } = this.props;
+    const { postCode, location, municipality, isFormValid } = this.props;
 
     // console.log("xinu li status? ", this.props);
     // console.log("the props ", this.props);
@@ -100,9 +95,7 @@ class FormExample extends Component {
             handleMunicipalityChange={this.handleMunicipalityChange}
           />
           <Button
-            className={`btn btn-success ${
-              hasAllFieldsBeenFilled ? "" : "disabled"
-            }`}
+            className={`btn btn-success ${isFormValid ? "" : "disabled"}`}
             onClick={this.handleButtonClick}
           >
             Proceed
@@ -131,7 +124,7 @@ const mapStateToProps = state => {
   return {
     location: location,
     municipality: municipality,
-    hasAllFieldsBeenFilled:
+    isFormValid:
       Boolean(location.value.length) && Boolean(municipality.value.length)
   };
 };

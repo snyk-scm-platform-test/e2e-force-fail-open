@@ -1,15 +1,20 @@
 import { CHANGE_CURRENT } from "../../constants";
 
 const initialState = {
-  current: ""
+  postCode: "",
+  location: "",
+  municipality: "",
+  lat: "",
+  lng: ""
 };
 export default function(state = initialState, action) {
   switch (action.type) {
     case CHANGE_CURRENT:
       return {
         ...state,
-        current: action.payload
+        ...action.payload
       };
+      break;
     default:
       return state;
   }
