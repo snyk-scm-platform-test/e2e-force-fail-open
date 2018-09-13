@@ -1,12 +1,15 @@
 import {
   FORM_LOCATION,
-  RESET_FORM_LOCATION,
   FORM_MUNICIPALITY,
-  RESET_FORM_MUNICIPALITY
+  FORM_POSTCODE,
+  RESET_FORM_LOCATION,
+  RESET_FORM_MUNICIPALITY,
+  RESET_FORM_POSTCODE
 } from "../../constants";
 import commonDefaultState from "../commonDefaultState";
 
 const initialState = {
+  postcode: null,
   municipality: {
     ...commonDefaultState
   },
@@ -16,6 +19,11 @@ const initialState = {
 };
 export default function(state = initialState, action) {
   switch (action.type) {
+    case FORM_POSTCODE:
+      return {
+        ...state,
+        postcode: action.payload
+      };
     case FORM_MUNICIPALITY:
       return {
         ...state,
@@ -36,10 +44,15 @@ export default function(state = initialState, action) {
       };
       break;
     case RESET_FORM_LOCATION:
-      console.log("resetting location");
       return {
         ...state,
         location: commonDefaultState
+      };
+      break;
+    case RESET_FORM_POSTCODE:
+      return {
+        ...state,
+        postcode: null
       };
       break;
     default:

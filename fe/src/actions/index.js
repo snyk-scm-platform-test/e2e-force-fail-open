@@ -3,7 +3,8 @@ import {
   resetLocation,
   resetMunicipality,
   resetHistory,
-  getAddressByPostcodeNumber
+  getAddressByPostcodeNumber,
+  resetPostcode
 } from "./address";
 import getLatAndLng from "./getLatAndLng";
 
@@ -13,5 +14,6 @@ export {
   resetHistory,
   getAddressByPostcodeNumber,
   resetLocation,
-  resetMunicipality
+  resetMunicipality,
+  resetPostcode
 };

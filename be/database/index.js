@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 });
 
 // The following three functions are extremely WET,
-// ugly, reptitive and whats not. These are scripts which I used
+// ugly, repetitive and whats not. These are scripts which I used
 // to get the data into the database. I did not optimize them
 exports.insertMunicipalities = function() {
   let fieldNames;

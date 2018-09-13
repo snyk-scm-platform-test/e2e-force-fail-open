@@ -14,8 +14,11 @@ import {
   changeCurrent,
   getAddressByPostcodeNumber,
   resetMunicipality,
-  resetLocation
+  resetLocation,
+  resetPostcode,
+  resetHistory
 } from "../../actions";
+import { POSTCODE_MAX_DIGITS } from "../../constants";
 import Postcode from "./Postcode";
 import Location from "./Location";
 import Municipality from "./Municipality";
@@ -31,7 +34,6 @@ class FormExample extends Component {
   };
 
   componentDidUpdate(prev, next) {
-    // to do next
     if (prev.location !== this.props.location) {
       this.setState({ location: this.props.location });
     }
@@ -45,14 +47,20 @@ class FormExample extends Component {
     const {
       getAddressByPostcodeNumber,
       resetLocation,
-      resetMunicipality
+      resetMunicipality,
+      resetPostcode
     } = this.props;
     let status = null;
-    if (postcodeNumber.length !== 4 || isNaN(postcodeNumber)) status = "error";
-    if (postcodeNumber.length === 4 && !isNaN(postcodeNumber)) {
+    if (postcodeNumber.length !== POSTCODE_MAX_DIGITS || isNaN(postcodeNumber))
+      status = "error";
+    if (
+      postcodeNumber.length === POSTCODE_MAX_DIGITS &&
+      !isNaN(postcodeNumber)
+    ) {
       status = "success";
       getAddressByPostcodeNumber(postcodeNumber);
     } else {
+      resetPostcode();
       resetLocation();
       resetMunicipality();
     }
@@ -102,7 +110,8 @@ const mapDisptchToProps = {
   changeCurrent,
   getAddressByPostcodeNumber,
   resetLocation,
-  resetMunicipality
+  resetMunicipality,
+  resetPostcode
 };
 
 const mapStateToProps = state => {
