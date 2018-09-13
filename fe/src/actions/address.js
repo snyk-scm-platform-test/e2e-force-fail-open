@@ -4,13 +4,17 @@ import {
   RESET_FORM_LOCATION,
   FORM_MUNICIPALITY,
   API_GET_ADDRESS_BY_POSTCODE,
-  CHANGE_CURRENT,
-  ADD_HISTORY,
-  RESET_HISTORY
+  CHANGE_CURRENT
 } from "../constants";
+
 import axios from "axios";
 
-const getAddressByPostcodeNumber = number => (dispatch, getState) => {
+export const getAddressByPostcodeNumber = number => (dispatch, getState) => {
+  dispatch({ type: FORM_LOCATION, payload: { isLoading: true } });
+  dispatch({
+    type: FORM_MUNICIPALITY,
+    payload: { isLoading: true }
+  });
   axios
     .get(`${API_GET_ADDRESS_BY_POSTCODE}/${number}`)
     .then(res => {
@@ -23,29 +27,22 @@ const getAddressByPostcodeNumber = number => (dispatch, getState) => {
       }, Object.create(null));
 
       const locations = Object.keys(locationList);
-      console.log("locationss ", locations.length);
-      console.log("locationss ", locationList);
       if (locations.length > 1) {
         const data = {
           hasOptions: true,
-          options: locations
+          options: locations,
+          isLoading: false
         };
         dispatch({ type: FORM_LOCATION, payload: data });
       }
-
       if (locations.length === 1) {
         const data = {
           hasOptions: false,
-          value: locations[0]
+          value: locations[0],
+          isLoading: false
         };
-        console.log(">>>>>");
         dispatch({ type: FORM_LOCATION, payload: data });
       }
-      const defaultLocationState = {
-        hasOptions: false,
-        value: "",
-        options: []
-      };
 
       const municipalityList = res.data.reduce(function(r, a) {
         r[a.municipality_name] = r[a.municipality_name] || [];
@@ -53,11 +50,11 @@ const getAddressByPostcodeNumber = number => (dispatch, getState) => {
         return r;
       }, Object.create(null));
       const municipalities = Object.keys(municipalityList);
-      console.log("hey there!!! ", municipalities);
       if (municipalities.length > 1) {
         const data = {
           hasOptions: true,
-          options: municipalities
+          options: municipalities,
+          isLoading: false
         };
         dispatch({ type: FORM_MUNICIPALITY, payload: data });
       }
@@ -65,7 +62,8 @@ const getAddressByPostcodeNumber = number => (dispatch, getState) => {
       if (municipalities.length === 1) {
         const data = {
           hasOptions: false,
-          value: municipalities[0]
+          value: municipalities[0],
+          isLoading: false
         };
         dispatch({ type: FORM_MUNICIPALITY, payload: data });
       }
@@ -74,33 +72,13 @@ const getAddressByPostcodeNumber = number => (dispatch, getState) => {
     .catch(err => console.log("somethign went wront ", err));
 };
 
-const resetLocation = () => (dispatch, getState) => {
+export const resetLocation = () => (dispatch, getState) => {
   dispatch({ type: RESET_FORM_LOCATION });
 };
 
-const changeCurrent = address => (dispatch, getState) => {
-  // In case of I/O calls to dispathc
-  // dispatch({type: CHANGE_CURRENT_LOADING})
+export const changeCurrent = address => (dispatch, getState) => {
   dispatch({ type: CHANGE_CURRENT, payload: address });
-  addHistory(address, getState, dispatch);
 };
 
-const addHistory = (address, getState, dispatch) => {
-  let { history } = getState().address;
-  history.push(address);
-  dispatch({ type: ADD_HISTORY, payload: history });
-};
-
-const resetHistory = () => (dispatch, getState) =>
-  dispatch({ type: RESET_HISTORY });
-
-const resetMunicipality = () => (dispatch, getState) =>
+export const resetMunicipality = () => (dispatch, getState) =>
   dispatch({ type: RESET_FORM_MUNICIPALITY });
-
-export {
-  changeCurrent,
-  resetHistory,
-  getAddressByPostcodeNumber,
-  resetLocation,
-  resetMunicipality
-};

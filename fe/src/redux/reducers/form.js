@@ -4,17 +4,14 @@ import {
   FORM_MUNICIPALITY,
   RESET_FORM_MUNICIPALITY
 } from "../../constants";
+import commonDefaultState from "../commonDefaultState";
 
 const initialState = {
   municipality: {
-    hasOptions: false,
-    value: "",
-    options: []
+    ...commonDefaultState
   },
   location: {
-    hasOptions: false,
-    value: "",
-    options: []
+    ...commonDefaultState
   }
 };
 export default function(state = initialState, action) {
@@ -35,14 +32,14 @@ export default function(state = initialState, action) {
     case RESET_FORM_MUNICIPALITY:
       return {
         ...state,
-        municipality: initialState.municipality
+        municipality: commonDefaultState
       };
       break;
     case RESET_FORM_LOCATION:
       console.log("resetting location");
       return {
         ...state,
-        location: initialState.location
+        location: commonDefaultState
       };
       break;
     default:

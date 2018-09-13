@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+import { Typeahead } from "react-bootstrap-typeahead";
 import {
   Col,
   FormGroup,
@@ -8,14 +9,16 @@ import {
   ControlLabel,
   Button
 } from "react-bootstrap";
-import { BounceLoader } from "react-spinners";
+import { DotLoader } from "react-spinners";
 import {
   changeCurrent,
   getAddressByPostcodeNumber,
   resetMunicipality,
   resetLocation
 } from "../../actions";
-import { Typeahead } from "react-bootstrap-typeahead";
+import Postcode from "./Postcode";
+import Location from "./Location";
+import Municipality from "./Municipality";
 
 class FormExample extends Component {
   state = {
@@ -56,93 +59,38 @@ class FormExample extends Component {
     this.setState({ postCode: { value: postcodeNumber, status } });
   };
 
-  handleLocationChange = e => {
+  handleLocationChange = e =>
     this.setState({ location: { value: e.target.value } });
-  };
 
   handleButtonClick = () => {
     const { postCode, location, municipality } = this.state;
     // this.props.getLatAndLng(postCode)
   };
 
-  handleMunicipalityChange = e => {
+  handleMunicipalityChange = e =>
     this.setState({ municipality: { value: e.target.value } });
-  };
-
-  renderLocation = () => {
-    const { location } = this.state;
-    const { hasOptions, value, options } = this.props.location;
-    console.log("loc value isss ...", value, location.value);
-    return (
-      <FormGroup controlId="location" validationState={location.status}>
-        <ControlLabel>
-          Location <BounceLoader size={15} />
-        </ControlLabel>
-        {hasOptions ? (
-          <Typeahead disabled={false} options={options || []} />
-        ) : (
-          <FormControl
-            type="text"
-            value={location.value}
-            onChange={this.handleLocationChange}
-          />
-        )}
-        <FormControl.Feedback />
-      </FormGroup>
-    );
-  };
-
-  renderMunicipality = () => {
-    const { municipality } = this.state;
-    const { hasOptions, value, options } = this.props.municipality;
-    return (
-      <FormGroup controlId="municipality" validationState={municipality.status}>
-        <ControlLabel>
-          Municipality <BounceLoader size={15} />
-        </ControlLabel>
-        {hasOptions ? (
-          <Typeahead disabled={false} options={options || []} />
-        ) : (
-          <FormControl
-            type="text"
-            value={municipality.value}
-            onChange={this.handleMunicipalityChange}
-          />
-        )}
-        <FormControl.Feedback />
-      </FormGroup>
-    );
-  };
 
   render() {
     const { postCode, location, municipality } = this.state;
-    const municipalityValue = municipality.value;
     console.log("xinu li status? ", this.state);
     console.log("the props ", this.props);
     return (
       <Col md={4}>
         <form>
-          <FormGroup
-            controlId="postCode"
-            validationState={this.state.postCode.status}
-          >
-            <ControlLabel>
-              Post code <BounceLoader size={15} />
-            </ControlLabel>
-            <FormControl
-              type="text"
-              value={postCode.value}
-              placeholder="Enter text"
-              onChange={this.handlePostCodeChange}
-            />
-            <FormControl.Feedback />
-            <HelpBlock>Postcode must be 4 digits</HelpBlock>
-          </FormGroup>
-          {this.renderLocation()}
-          {this.renderMunicipality()}
+          <Postcode
+            {...postCode}
+            handlePostCodeChange={this.handlePostCodeChange}
+          />
+          <Location
+            {...location}
+            handleLocationChange={this.handleLocationChange}
+          />
+          <Municipality
+            {...municipality}
+            handleMunicipalityChange={this.handleMunicipalityChange}
+          />
           <Button className="btn btn-success" onClick={this.handleButtonClick}>
-            {" "}
-            Proceed{" "}
+            Proceed
           </Button>
         </form>
       </Col>
