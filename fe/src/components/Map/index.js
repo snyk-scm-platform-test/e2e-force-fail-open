@@ -29,8 +29,6 @@ const MyMapComponent = withScriptjs(
 
 class Map extends Component {
   state = {
-    lat: 0,
-    lng: 9,
     isVisible: false
   };
   componentDidUpdate(prevProps) {
@@ -38,9 +36,8 @@ class Map extends Component {
       prevProps.currentAddress,
       this.props.currentAddress
     );
-    // Omitting isLoading
-    const { isLoading, ...propsDiffWithoutIsLoading } = prevPropsDiff;
-    if (!!Object.getOwnPropertyNames(propsDiffWithoutIsLoading).length) {
+
+    if (!!Object.getOwnPropertyNames(prevPropsDiff).length) {
       const { currentAddress, getLatAndLng } = this.props;
       const { postCode, location, municipality, lat, lng } = currentAddress;
       const address = `${postCode} ${location} ${municipality}`;

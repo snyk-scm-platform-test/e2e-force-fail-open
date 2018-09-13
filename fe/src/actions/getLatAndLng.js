@@ -1,4 +1,4 @@
-import { GEO_CODE_API_KEY, CHANGE_CURRENT } from "../constants";
+import { GEO_CODE_API_KEY, CHANGE_CURRENT_ADDRESS } from "../constants";
 import Geocode from "react-geocode";
 
 export default address => (dispatch, getState) => {
@@ -7,7 +7,7 @@ export default address => (dispatch, getState) => {
     response => {
       const { lat, lng } = response.results[0].geometry.location;
       dispatch({
-        type: CHANGE_CURRENT,
+        type: CHANGE_CURRENT_ADDRESS,
         payload: { ...getState().currentAddress, lat, lng }
       });
     },

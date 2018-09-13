@@ -1,4 +1,4 @@
-import { CHANGE_CURRENT } from "../../constants";
+import { CHANGE_CURRENT_ADDRESS } from "../../constants";
 
 const initialState = {
   postCode: "",
@@ -9,7 +9,7 @@ const initialState = {
 };
 export default function(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_CURRENT:
+    case CHANGE_CURRENT_ADDRESS:
       return {
         ...state,
         ...action.payload

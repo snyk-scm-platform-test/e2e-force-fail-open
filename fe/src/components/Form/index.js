@@ -60,10 +60,10 @@ class FormExample extends Component {
     this.props.updateLocation(value);
   };
   handleLocationOnInputChange = valueList =>
-    this.props.updateLocation(valueList[0]);
+    this.props.updateLocation(valueList[0] || "");
 
   handleMunicipalityOnInputChange = valueList =>
-    this.props.updateMunicipality(valueList[0]);
+    this.props.updateMunicipality(valueList[0] || "");
 
   handleMunicipalityChange = e => {
     console.log("munic changing!!!");

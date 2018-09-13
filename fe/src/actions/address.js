@@ -5,7 +5,7 @@ import {
   RESET_FORM_LOCATION,
   FORM_MUNICIPALITY,
   API_GET_ADDRESS_BY_POSTCODE,
-  CHANGE_CURRENT,
+  CHANGE_CURRENT_ADDRESS,
   FORM_POSTCODE,
   RESET_FORM_POSTCODE,
   FORM_LOCATION_LOADING,
@@ -124,7 +124,7 @@ export const changedCurrentAddress = address => (dispatch, getState) => {
     location: getState().form.location.value,
     municipality: getState().form.municipality.value
   };
-  dispatch({ type: CHANGE_CURRENT, payload: currentAddress });
+  dispatch({ type: CHANGE_CURRENT_ADDRESS, payload: currentAddress });
 };
 
 export const resetMunicipality = () => (dispatch, getState) =>
