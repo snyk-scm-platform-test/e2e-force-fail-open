@@ -28,8 +28,6 @@ class FormExample extends Component {
       resetPostcode
     } = this.props;
     let postCodeStatus = null;
-    if (postcodeNumber.length !== POSTCODE_MAX_DIGITS || isNaN(postcodeNumber))
-      postCodeStatus = "error";
     if (
       postcodeNumber.length === POSTCODE_MAX_DIGITS &&
       !isNaN(postcodeNumber)
@@ -37,6 +35,7 @@ class FormExample extends Component {
       postCodeStatus = "success";
       getAddressByPostcodeNumber(postcodeNumber);
     } else {
+      postCodeStatus = "error";
       resetPostcode();
       resetLocation();
       resetMunicipality();
