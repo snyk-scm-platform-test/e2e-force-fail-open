@@ -30,36 +30,42 @@ class FormExample extends Component {
     let postCodeStatus = null;
     if (postcodeNumber.length !== POSTCODE_MAX_DIGITS || isNaN(postcodeNumber))
       postCodeStatus = "error";
-    this.setState({ postCodeStatus });
     if (
       postcodeNumber.length === POSTCODE_MAX_DIGITS &&
       !isNaN(postcodeNumber)
     ) {
       postCodeStatus = "success";
-      this.setState({ postCodeStatus });
       getAddressByPostcodeNumber(postcodeNumber);
     } else {
       resetPostcode();
       resetLocation();
       resetMunicipality();
     }
+    this.setState({ postCodeStatus });
   };
 
-  handleLocationChange = e => {
-    const { value } = e.target;
-    this.props.updateLocation(value);
+  handleLocationChange = valueList => {
+    if (valueList.length) {
+      this.props.updateLocation(valueList[0] || "");
+    }
   };
-  handleLocationOnInputChange = valueList =>
-    this.props.updateLocation(valueList[0] || "");
 
-  handleMunicipalityOnInputChange = valueList =>
-    this.props.updateMunicipality(valueList[0] || "");
+  handleLocationOnInputChange = e => {
+    if (e.target) {
+      this.props.updateLocation(e.target.value);
+    }
+  };
 
-  handleMunicipalityChange = e => {
-    console.log("munic changing!!!");
-    const { value } = e.target;
-    // this.setState({ municipality: { value } });
-    this.props.updateMunicipality(value);
+  handleMunicipalityOnInputChange = e => {
+    if (e.target) {
+      this.props.updateLocation(e.target.value);
+    }
+  };
+
+  handleMunicipalityChange = valueList => {
+    if (valueList.length) {
+      this.props.updateMunicipality(valueList[0] || "");
+    }
   };
 
   handleButtonClick = () => {
@@ -70,8 +76,6 @@ class FormExample extends Component {
   render() {
     const { postCode, location, municipality, isFormValid } = this.props;
     const { postCodeStatus } = this.state;
-    // console.log("xinu li status? ", this.props);
-    // console.log("the props ", this.props);
     return (
       <Col md={4}>
         <form>
@@ -87,8 +91,8 @@ class FormExample extends Component {
           />
           <Municipality
             {...municipality}
-            handleMonInputChange={this.handleMunicipalityOnInputChange}
-            handleMunicipalityChange={this.handleMunicipalityChange}
+            onInputChange={this.handleMunicipalityOnInputChange}
+            onChange={this.handleMunicipalityChange}
           />
           <Button
             className={`btn btn-success ${isFormValid ? "" : "disabled"}`}

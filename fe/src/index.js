@@ -18,12 +18,10 @@ const store = getInitiatedStore();
 
 const getApp = () => (
   <Provider store={store}>
-    <div className="App container">
-      <Row style={{ margin: "30px 0 40px" }}>
-        <Form />
-        <Map />
-      </Row>
-    </div>
+    <Row className="app container">
+      <Form />
+      <Map />
+    </Row>
   </Provider>
 );
 

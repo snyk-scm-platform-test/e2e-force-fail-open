@@ -28,19 +28,29 @@ export const getAddressByPostcodeNumber = number => (dispatch, getState) => {
     .then(res => {
       const API_RESPONSE_KEY_MUNICIPALITY = "municipality_name";
       const API_RESPONSE_KEY_LOCATION = "location";
+      const locationOptions = processApiData(
+        res.data,
+        API_RESPONSE_KEY_LOCATION
+      );
+      const municipalityOptions = processApiData(
+        res.data,
+        API_RESPONSE_KEY_MUNICIPALITY
+      );
       dispatch({
         type: FORM_LOCATION,
         payload: {
-          isLoading: false,
-          value: processApiData(res.data, API_RESPONSE_KEY_LOCATION)
+          ...commonDefaultState,
+          value: locationOptions.length === 1 ? locationOptions[0] : "",
+          options: locationOptions
         }
       });
 
       dispatch({
         type: FORM_MUNICIPALITY,
         payload: {
-          isLoading: false,
-          value: processApiData(res.data, API_RESPONSE_KEY_MUNICIPALITY)
+          ...commonDefaultState,
+          value: municipalityOptions.length === 1 ? municipalityOptions[0] : "",
+          options: municipalityOptions
         }
       });
 

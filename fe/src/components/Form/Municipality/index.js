@@ -3,33 +3,19 @@ import { Typeahead } from "react-bootstrap-typeahead";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { DotLoader } from "react-spinners";
 
-export default ({
-  hasOptions,
-  value,
-  options,
-  isLoading,
-  handleMunicipalityChange,
-  handleMonInputChange
-}) => {
+export default ({ value, options, isLoading, onChange, onInputChange }) => {
   return (
     <FormGroup controlId="municipality">
       <ControlLabel>
         Municipality {isLoading && <DotLoader size={15} />}
       </ControlLabel>
-      {hasOptions ? (
-        <Typeahead
-          disabled={isLoading}
-          onChange={handleMonInputChange}
-          options={options || []}
-        />
-      ) : (
-        <FormControl
-          disabled={isLoading}
-          type="text"
-          value={value}
-          onChange={handleMunicipalityChange}
-        />
-      )}
+      <Typeahead
+        selected={[value]}
+        disabled={isLoading}
+        onChange={onChange}
+        onInputChange={onInputChange}
+        options={options || []}
+      />
       <FormControl.Feedback />
     </FormGroup>
   );
