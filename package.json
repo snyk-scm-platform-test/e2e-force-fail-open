@@ -1,0 +1,21 @@
+{
+  "name": "crowdhouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run start-be & npm run start-fe",
+    "start-be": "cd be && npm run dev",
+    "start-fe": "cd fe && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metju90/crowdhouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metju90/crowdhouse/issues"
+  },
+  "homepage": "https://github.com/metju90/crowdhouse#readme"
+}
