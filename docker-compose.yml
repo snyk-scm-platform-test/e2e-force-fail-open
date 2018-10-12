@@ -1,0 +1,36 @@
+# docker compose version
+version: "3"
+
+services:
+  database:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: statistics
+      MYSQL_USER: foo
+      MYSQL_PASSWORD: bar
+    volumes:
+      - ./be/database:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+  node-be:
+    build: .
+    restart: always
+    volumes:
+      - /app/be/node_modules
+      - ./be:/app/be
+    ports:
+      - 4000:4000
+  node-fe:
+    image: node:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.fe
+    volumes:
+      - /app/fe/node_modules
+      - ./fe:/app/fe
+    ports:
+      - 3000:3000

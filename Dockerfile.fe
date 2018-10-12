@@ -1,0 +1,9 @@
+FROM node:alpine
+
+WORKDIR "/app/fe"
+
+COPY ./fe/package.json .
+RUN npm install
+COPY fe .
+
+CMD ["npm", "start"]
