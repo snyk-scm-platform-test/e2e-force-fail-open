@@ -5,14 +5,18 @@ import {
   HelpBlock,
   ControlLabel
 } from "react-bootstrap";
+import { TextField } from "@material-ui/core";
 
 export default ({ handlePostCodeChange, value, status }) => {
   return (
-    <FormGroup controlId="postCode" validationState={status}>
-      <ControlLabel>Post code</ControlLabel>
-      <FormControl type="text" value={value} onChange={handlePostCodeChange} />
-      <FormControl.Feedback />
-      <HelpBlock>Postcode must be 4 digits</HelpBlock>
-    </FormGroup>
+    <TextField
+      id="outlined-dense"
+      margin="dense"
+      variant="outlined"
+      label="Post code"
+      value={value}
+      onChange={handlePostCodeChange}
+      helperText="Post code must be 4 digits"
+    />
   );
 };

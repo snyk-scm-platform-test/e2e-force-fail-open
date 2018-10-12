@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/react-notched-outline": "^0.5.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "react": "^16.5.0",
@@ -24,6 +25,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@material-ui/core": "^3.1.1",
     "prettier": "1.14.2"
   }
 }
