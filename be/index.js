@@ -12,6 +12,15 @@ app.use(function(req, res, next) {
   next();
 });
 
+// app.use("/", function(req, res) {
+//   // db.insertMunicipalities();
+//   // db.insertPostcodes();
+//   // db.insertMunicipalitiesHasPostcode();
+//   console.log("xxxx");
+//   // console.log(db);
+//   res.end(JSON.stringify("hello", null, 2));
+// });
+
 app.use("/address/postcode-number/:number", function(req, res) {
   res.setHeader("Content-Type", "application/json");
   // console.log('test ', req.params.number)
@@ -24,7 +33,16 @@ app.use("/address/postcode-number/:number", function(req, res) {
     })
     .catch(error => {
       res.status(500);
-      res.end(JSON.stringify({ errorCode: 500, hasError: true }), null, 2);
+      res.end(
+        JSON.stringify({
+          test: 1,
+          db: db.connection,
+          errorCode: 500,
+          message: error
+        }),
+        null,
+        2
+      );
     });
 });
 
