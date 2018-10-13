@@ -11,7 +11,7 @@ services:
       MYSQL_USER: foo
       MYSQL_PASSWORD: bar
     volumes:
-      - ./be/database:/docker-entrypoint-initdb.d
+      - ./be/database/sql:/docker-entrypoint-initdb.d
   adminer:
     image: adminer
     ports:
@@ -20,8 +20,8 @@ services:
     build: .
     restart: always
     volumes:
-      - /app/be/node_modules
-      - ./be:/app/be
+      - /app/node_modules
+      - ./be:/app
     ports:
       - 4000:4000
   node-fe:
@@ -31,6 +31,6 @@ services:
       dockerfile: Dockerfile.fe
     volumes:
       - /app/fe/node_modules
-      - ./fe:/app/fe
+      - ./fe:/app
     ports:
       - 3000:3000
