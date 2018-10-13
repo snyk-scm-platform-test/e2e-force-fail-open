@@ -13,7 +13,7 @@ Additionally,
 - 100% of the addresses in `6343 Rotkreuz` belongs to the municipality Risch;
 - 100% of the addresses in `6343 Risch` also belongs to the municipality Risch.
 
-This application expects the user to input a postcode. The system processed the user input and tts corresponding addresses and municipalities are shown in two different fields.
+This application expects the user to input a postcode. The system processes the user input and its corresponding addresses and municipalities are shown in two different fields.
 
 Using the postcodes mentioned above as an example, if the user insert `8806` postcode the field `location` in the application would be prefilled with `Bäch SZ` and a dropdown with multiple options (`Freienbach` and `Wollerau`) will be available in the municipality field.
 
