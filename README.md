@@ -1,11 +1,11 @@
 ## How to run
 
-Execute `npm run dev` in the root directory.
+Asuming you have Docker installed, execute `docker-compose up` in the root directory. You should then be able to access the application on `http://localhost:3000`
 
-## If you run once, you would need to kill ports manually to re-run
+## API endpoint
 
-Find the PID using ports `3000` and `40000`:
-`sudo lsof -i tcp:$port`
-then
+The only endpoint used by the application is `http://localhost:4000/address/postcode-number/:number`
 
-`kill -9 $PID`
+## Database - Adminer
+
+You may query the database via Adminer - `http://localhost:8080/` user/password `root`/`secret`
