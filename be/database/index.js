@@ -125,7 +125,7 @@ exports.insertMunicipalitiesHasPostcode = function() {
       return;
     }
     // make the query
-    connection.query($QUERY, [municipalities], function(err, results) {
+    connection.query(QUERY, [municipalities], function(err, results) {
       connection.release();
       if (err) {
         console.log(err);
@@ -140,13 +140,13 @@ exports.insertMunicipalitiesHasPostcode = function() {
 exports.getAddressByPostcodeNumber = function(number) {
   return new Promise(function(resolve, reject) {
     pool.getConnection(function(err, connection) {
-      $QUERY =
+      const QUERY =
         "SELECT DISTINCT p.name as location, p.number as postcode, m.name as municipality_name, m.number as municipality_number FROM municipality_has_postcode mp INNER JOIN postcode p on p.number=mp.postcode_number INNER JOIN municipality m on m.number = mp.municipality_number WHERE mp.postcode_number = ?";
       if (err) {
         reject(err);
         return;
       }
-      connection.query($QUERY, [number], function(err, results) {
+      connection.query(QUERY, [number], function(err, results) {
         connection.release();
         if (err) {
           console.log("error....", err);
@@ -155,30 +155,6 @@ exports.getAddressByPostcodeNumber = function(number) {
           resolve(results);
         }
       });
-    });
-  });
-};
-
-// not needed
-exports.getMunicipality = function() {
-  return new Promise(function(resolve, reject) {
-    // reject();
-    pool.getConnection(function(err, connection) {
-      $QUERY = "SELECT name FROM `municipality`";
-      if (err) {
-        console.log("error!! ");
-        return;
-      }
-      connection.query($QUERY, function(err, results) {
-        connection.release();
-        if (err) {
-          console.log("error....", err);
-          reject(err);
-        } else {
-          resolve(results);
-        }
-      });
-      // console.log('qqq ', results);
     });
   });
 };

@@ -1,4 +1,3 @@
-ALTER USER 'foo'@'%' IDENTIFIED WITH mysql_native_password BY 'bar';
 
 -- SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 -- SET AUTOCOMMIT = 0;

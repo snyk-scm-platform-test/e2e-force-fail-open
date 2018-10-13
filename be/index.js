@@ -12,21 +12,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use("/", function(req, res) {
-//   // db.insertMunicipalities();
-//   // db.insertPostcodes();
-//   // db.insertMunicipalitiesHasPostcode();
-//   console.log("xxxx");
-//   // console.log(db);
-//   res.end(JSON.stringify("hello", null, 2));
-// });
-
 app.use("/address/postcode-number/:number", function(req, res) {
   res.setHeader("Content-Type", "application/json");
-  // console.log('test ', req.params.number)
-  // console.log('test... ', req.app.locals)
-  // x(req).then(r => res.end(JSON.stringify(r, null, 2)));
-  // var x = db.getAddressByPostcodeNumber(req.params.number);
+
   db.getAddressByPostcodeNumber(req.params.number)
     .then(result => {
       res.end(JSON.stringify(result, null, 2));
@@ -35,25 +23,12 @@ app.use("/address/postcode-number/:number", function(req, res) {
       res.status(500);
       res.end(
         JSON.stringify({
-          test: 1,
-          db: db.connection,
           errorCode: 500,
           message: error
         }),
         null,
         2
       );
-    });
-});
-
-// Not needed
-app.use("/address/municipalities", function(req, res) {
-  res.setHeader("Content-Type", "application/json");
-  db.getMunicipality()
-    .then(result => res.end(JSON.stringify(result, null, 2)))
-    .catch(error => {
-      res.status(500);
-      res.end(JSON.stringify({ errorCode: 500, hasError: true }), null, 2);
     });
 });
 
