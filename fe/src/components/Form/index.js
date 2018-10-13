@@ -57,7 +57,7 @@ class FormExample extends Component {
 
   handleMunicipalityOnInputChange = e => {
     if (e.target) {
-      this.props.updateLocation(e.target.value);
+      this.props.updateMunicipality(e.target.value);
     }
   };
 

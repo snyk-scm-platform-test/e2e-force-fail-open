@@ -29,31 +29,26 @@ export default function(state = initialState, action) {
         ...state,
         municipality: action.payload
       };
-      break;
     case FORM_LOCATION:
       return {
         ...state,
         location: action.payload
       };
-      break;
     case RESET_FORM_MUNICIPALITY:
       return {
         ...state,
         municipality: commonDefaultState
       };
-      break;
     case RESET_FORM_LOCATION:
       return {
         ...state,
         location: commonDefaultState
       };
-      break;
     case RESET_FORM_POSTCODE:
       return {
         ...state,
         postcode: null
       };
-      break;
     default:
       return state;
   }

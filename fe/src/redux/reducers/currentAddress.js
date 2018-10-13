@@ -14,7 +14,6 @@ export default function(state = initialState, action) {
         ...state,
         ...action.payload
       };
-      break;
     default:
       return state;
   }

@@ -93,3 +93,18 @@ fieldset.MuiNotchedOutline-root-49.MuiOutlinedInput-notchedOutline-26 {
 .MuiFormControl-root-1.MuiFormControl-marginDense-3 {
   width: 100%;
 }
+
+.field-wrapper {
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  right: 50%;
+  margin: auto;
+  top: 50%;
+}
+
+.disabled {
+  background: rgba(0, 0, 0, 0.1);
+}

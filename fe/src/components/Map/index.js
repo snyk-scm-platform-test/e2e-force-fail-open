@@ -29,10 +29,14 @@ class Map extends Component {
       this.props.currentAddress
     );
 
-    if (!!Object.getOwnPropertyNames(prevPropsDiff).length) {
+    if (
+      Boolean(Object.getOwnPropertyNames(prevPropsDiff).length) &&
+      prevPropsDiff.hasOwnProperty("postCode")
+    ) {
       const { currentAddress, getLatAndLng } = this.props;
       const { postCode, location, municipality } = currentAddress;
       const address = `${postCode} ${location} ${municipality}`;
+      console.log("the address is... ", address);
       getLatAndLng(address);
       this.setState({ isVisible: true });
     }

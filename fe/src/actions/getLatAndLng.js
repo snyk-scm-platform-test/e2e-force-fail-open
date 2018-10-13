@@ -12,7 +12,7 @@ export default address => (dispatch, getState) => {
       });
     },
     error => {
-      console.error(error);
+      console.error("eerprrrrr".error);
     }
   );
 };
