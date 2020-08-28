@@ -5,7 +5,7 @@ In Switzerland, the names of the locations we write next to the postcode are not
 Consider the following examples:
 
 - 69.8% of the addresses `8806 Bäch SZ` belongs to the municipality Freienbach;
-- the rest 30.2% of the addresses `8806 Bäch SZ`belongs to the municipality Wollerau.
+- the remaining 30.2% addresses of `8806 Bäch SZ`belongs to the municipality Wollerau.
 
 Additionally,
 
@@ -13,9 +13,13 @@ Additionally,
 - 100% of the addresses in `6343 Rotkreuz` belongs to the municipality Risch;
 - 100% of the addresses in `6343 Risch` also belongs to the municipality Risch.
 
-This application expects the user to input a postcode. The system processes the user input and its corresponding addresses and municipalities are shown in two different fields.
 
-Using the postcodes mentioned above as an example, if the user insert `8806` postcode the field `location` in the application would be prefilled with `Bäch SZ` and a dropdown with multiple options (`Freienbach` and `Wollerau`) will be available in the municipality field.
+This application
+
+This application expects the user to input a postcode and then the system and the system list the corresponding locations and municipalities.
+
+Using the postcodes mentioned above as an example, if the user inserts `8806` postcode, `Bäch SZ` and a dropdown with options `Freienbach` and `Wollerau` will be displayed in the `location` and `municipalities` respectively.
+
 
 ## Addresses data
 
