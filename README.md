@@ -35,4 +35,4 @@ The only endpoint built is accessible with a GET request on `http://localhost:40
 
 ## Database - Adminer
 
-You may query the database via Adminer - `http://localhost:8080/` user/password `root`/`secret`
+You may query the database via Adminer - `http://localhost:8080/` user/password `root`/`secret`.
