@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@material/react-notched-outline": "^0.5.0",
-    "axios": "^0.18.0",
-    "lodash": "^4.17.11",
+    "axios": "^0.21.3",
+    "lodash": "^4.17.21",
     "react": "^16.5.0",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-typeahead": "^3.2.3",
@@ -13,19 +13,23 @@
     "react-geocode": "^0.1.2",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",
-    "react-scripts": "1.1.5",
+    "react-scripts": "5.0.0",
     "react-spinners": "^0.4.5",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "devDependencies": {
     "@material-ui/core": "^3.1.1",
     "prettier": "1.14.2"
-  }
+  },
+  "snyk": true
 }
