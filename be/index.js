@@ -1,3 +1,7 @@
+// fake token
+const API_TOKEN = "738b6a1e-0ba2-4dba-875b-b75d78097b80"
+
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
