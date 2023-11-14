@@ -5,7 +5,6 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
    # file Copyright.txt or https://cmake.org/licensing for details.
 import argparse
-import codecs
 import copy
 import logging
 import json
@@ -19,7 +18,6 @@ class VSFlags:
     """Flags corresponding to cmIDEFlagTable."""
     UserValue = "UserValue"  # (1 << 0)
     UserIgnored = "UserIgnored"  # (1 << 1)
-    UserRequired = "UserRequired"  # (1 << 2)
     Continue = "Continue"  #(1 << 3)
     SemicolonAppendable = "SemicolonAppendable"  # (1 << 4)
     UserFollowing = "UserFollowing"  # (1 << 5)
