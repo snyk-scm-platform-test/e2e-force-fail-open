@@ -8,6 +8,10 @@ import { Row } from "react-bootstrap";
 import Form from "./components/Form";
 import Map from "./components/Map";
 
+
+
+
+
 const getInitiatedStore = () => {
   storeInit();
   registerReducer();
