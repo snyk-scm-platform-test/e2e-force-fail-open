@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@material/react-notched-outline": "^0.5.0",
-    "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "axios": "^0.18.0",
     "react": "^16.5.0",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-typeahead": "^3.2.3",
