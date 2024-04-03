@@ -8,6 +8,7 @@
     "@material/react-notched-outline": "^0.5.0",
     "lodash": "^4.17.11",
     "axios": "^0.18.0",
+    "redux-thunk": "^2.3.0"
     "react-google-maps": "^9.4.5",
     "react-bootstrap-typeahead": "^3.2.3",
     "react-dom": "^16.5.0",
@@ -15,7 +16,6 @@
     "react-geocode": "^0.1.2",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.5",
-    "redux-thunk": "^2.3.0"
     "react-google-maps": "^9.4.5",
     "react": "^16.5.0",
     "redux": "^4.0.0"
