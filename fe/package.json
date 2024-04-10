@@ -10,11 +10,11 @@
     
     "react-google-maps": "^9.4.5",
     "react-bootstrap-typeahead": "^3.2.3",
-    "react-bootstrap": "^0.32.4",
     "lodash": "^4.17.11",
     "axios": "^0.18.0",
     "redux": "^4.0.0"
     "react-dom": "^16.5.0",
+    "react-bootstrap": "^0.32.4",
     
     "react-redux": "^5.0.7",
         "react-spinners": "^0.4.5",
