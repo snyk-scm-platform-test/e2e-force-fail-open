@@ -6,7 +6,6 @@
     "react": "^16.5.0",
     "redux-thunk": "^2.3.0"
     "react-google-maps": "^9.4.5",
-    "react-dom": "^16.5.0",
     "react-geocode": "^0.1.2",
     
     "react-google-maps": "^9.4.5",
@@ -15,6 +14,7 @@
     "lodash": "^4.17.11",
     "axios": "^0.18.0",
     "redux": "^4.0.0"
+    "react-dom": "^16.5.0",
     
     "react-redux": "^5.0.7",
         "react-spinners": "^0.4.5",
