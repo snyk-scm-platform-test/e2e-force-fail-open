@@ -3,20 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material/react-notched-outline": "^0.5.0",
-    "axios": "^0.18.0",
-    "lodash": "^4.17.11",
     "react": "^16.5.0",
-    "react-bootstrap": "^0.32.4",
-    "react-bootstrap-typeahead": "^3.2.3",
-    "react-dom": "^16.5.0",
+    "redux-thunk": "^2.3.0"
+    "react-google-maps": "^9.4.5",
     "react-geocode": "^0.1.2",
     "react-google-maps": "^9.4.5",
+    "react-bootstrap-typeahead": "^3.2.3",
+    "lodash": "^4.17.11",
+    "redux": "^4.0.0"
+    "react-dom": "^16.5.0",
+    "react-bootstrap": "^0.32.4",
+    "react": "^16.5.0",
+    "axios": "^0.18.0",
     "react-redux": "^5.0.7",
-    "react-scripts": "1.1.5",
     "react-spinners": "^0.4.5",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
+    "@material/react-notched-outline": "^0.5.0",
+    "react-scripts": "1.1.5"
   },
   "scripts": {
     "start": "react-scripts start",
